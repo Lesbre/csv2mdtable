@@ -6,10 +6,12 @@
 
 // #include "options.hpp"
 
-#ifdef POSIX
-	// checks if tty or pipe
-	#include <stdio.h>
-	#include <unistd.h>
+#ifdef SHOW_SEPARATOR
+	#ifdef POSIX
+		// checks if tty or pipe
+		#include <stdio.h>
+		#include <unistd.h>
+	#endif
 #endif
 
 char auto_detect_separator(const std::string& file, const char line_sep) {
@@ -92,18 +94,20 @@ char auto_detect_separator(const std::string& file, const char line_sep) {
 			return 0;
 		}
 	}
-	#ifdef POSIX
-		if (isatty(fileno(stdout))) {
+	#ifdef SHOW_SEPARATOR
+		#ifdef POSIX
+			if (isatty(fileno(stdout))) {
+				if (col_sep != '\t')
+					std::printf(NAME " selected '%c' as column separator\n", col_sep);
+				else
+					std::printf(NAME " selected '\\t' as column separator\n");
+			}
+		#else
 			if (col_sep != '\t')
 				std::printf(NAME " selected '%c' as column separator\n", col_sep);
 			else
 				std::printf(NAME " selected '\\t' as column separator\n");
-		}
-	#else
-		if (col_sep != '\t')
-			std::printf(NAME " selected '%c' as column separator\n", col_sep);
-		else
-			std::printf(NAME " selected '\\t' as column separator\n");
+		#endif
 	#endif
 	delete number_sep_per_current_line;
 	delete number_sep_per_line;

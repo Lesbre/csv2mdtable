@@ -4,15 +4,6 @@
 
 #include "options.hpp"
 
-bool use_padding     = true;
-bool ext_pipes       = true;
-bool auto_detect_sep = true;
-char col_sep         = '\t';
-char line_sep        = '\n';
-char * in_path       = nullptr;
-char * out_path      = nullptr;
-std::vector<char> align;
-
 int parse_cmd(int argc, char ** argv, settings& prgm_settings) {
 	// Command-line parsing
 	bool show_help = false;

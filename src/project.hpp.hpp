@@ -10,7 +10,7 @@ This header contains info used in all parts of the program about the build
 #define VERSION_MINOR @VERSION_MINOR@
 #define VERSION "@VERSION_MAJOR@.@VERSION_MINOR@"
 
-#include "../../common/ansi.h"
+#include "ansi.hpp"
 #include <iostream> // printf
 
 #define NAME Color_Yellow "markdown-table:" Color_Reset

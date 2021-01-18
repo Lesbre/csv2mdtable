@@ -1,2 +1,7 @@
+# build files
 build/
+csv2mdtable
+src/project.hpp
+
+# editor files
 .vscode/

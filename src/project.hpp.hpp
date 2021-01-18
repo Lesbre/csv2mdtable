@@ -16,9 +16,9 @@ This header contains info used in all parts of the program about the build
 #define NAME Color_Yellow "@EXECUTABLE@:" Color_Reset
 
 #ifdef DEBUG
-    #define printf_debug(...) std::fprintf(stderr, Color_Green "DEBUG:" Color_Reset __VA_ARGS__)
+	#define printf_debug(...) std::fprintf(stderr, Color_Green "DEBUG:" Color_Reset __VA_ARGS__)
 #else
-    #define printf_debug(...)
+	#define printf_debug(...)
 #endif // DEBUG
 
 

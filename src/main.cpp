@@ -27,7 +27,7 @@ int main(int argc, char ** argv) {
 		.align           = std::vector<char>(),
 	};
 
-	int cmd_res = parse_cmd(argc, argv, prgm_settings);
+	const int cmd_res = parse_cmd(argc, argv, prgm_settings);
 	if (cmd_res != 0) {
 		if (cmd_res == -1)
 			return 0;
@@ -37,15 +37,15 @@ int main(int argc, char ** argv) {
 	// read csv input
 	std::string csv = read(prgm_settings.in_path);
 
-	unsigned int align_len = prgm_settings.align.size();
-	unsigned int input_len = csv.length();
+	const unsigned int align_len = prgm_settings.align.size();
+	const unsigned int input_len = csv.length();
 	if (input_len == 0) {
 		printf_error("empty input (check path and permissions)\n");
 		return 2; // invalid file error code
 	}
 
 	if (prgm_settings.auto_detect_sep) {
-		char sep = auto_detect_separator(csv, prgm_settings.line_sep);
+		const char sep = auto_detect_separator(csv, prgm_settings.line_sep);
 		if (!sep)
 			return 3; // no suitable separator found
 			// invalid csv error code
@@ -83,7 +83,7 @@ int main(int argc, char ** argv) {
 		prgm_settings.align.push_back('_');
 	}
 
-	std::string output = format(csv, prgm_settings, widths, col_number);
+	const std::string output = format(csv, prgm_settings, widths, col_number);
 
 	if (write(prgm_settings.out_path, output)) {
 		printf_error("failed to write to '%s'. Check file path and permissions", prgm_settings.out_path);

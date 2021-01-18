@@ -14,7 +14,7 @@ std::string format(
 		const unsigned int col_number
 		) {
 	std::string output = "";
-	unsigned int input_len = csv.length();
+	const unsigned int input_len = csv.length();
 	unsigned int col_id = 0;
 	unsigned int cell_start = 0;
 	bool first_line = true;
@@ -23,10 +23,10 @@ std::string format(
 		if (csv[i] == prgm_settings.col_sep || csv[i] == prgm_settings.line_sep) {
 			// printf_debug("%d %d %d ", i, cell_start, col_id);
 			std::string cell = csv.substr(cell_start, i - cell_start);
-			unsigned int cell_len = i - cell_start;
+			const unsigned int cell_len = i - cell_start;
 
 			if (prgm_settings.use_padding) { // pad cell with spaces
-				unsigned int missing = widths[col_id] - cell_len;
+				const unsigned int missing = widths[col_id] - cell_len;
 				switch (prgm_settings.align[col_id])
 				{
 				case 'r':

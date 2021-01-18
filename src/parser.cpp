@@ -27,9 +27,9 @@ char auto_detect_separator(const std::string& file, const char line_sep) {
 			break;
 		}
 	}
-	unsigned char nb_separators = separators.length();
+	const unsigned char nb_separators = separators.length();
 
-	unsigned int input_len = file.length();
+	const unsigned int input_len = file.length();
 	char * number_sep_per_line = new char[nb_separators];
 	char * number_sep_per_current_line = new char[nb_separators];
 	for (unsigned char j = 0; j < nb_separators; ++j) {
@@ -116,7 +116,7 @@ char auto_detect_separator(const std::string& file, const char line_sep) {
 
 std::vector<unsigned int> columns_width(const std::string& file, const char col_sep, const char line_sep) {
 	std::vector<unsigned int> widths;
-	unsigned int input_len = file.length();
+	const unsigned int input_len = file.length();
 	unsigned int col_number = 0;
 	unsigned int cell_start = 0;
 	unsigned int table_width = 0; // length of width
@@ -133,7 +133,7 @@ std::vector<unsigned int> columns_width(const std::string& file, const char col_
 			++col_number;
 		}
 		else if (file[t] == line_sep) {
-			unsigned int width = t - cell_start;
+			const unsigned int width = t - cell_start;
 			cell_start = t + 1;
 			if (col_number < table_width)
 				widths[col_number] = max(widths[col_number], width);
@@ -150,7 +150,7 @@ std::vector<unsigned int> columns_width(const std::string& file, const char col_
 unsigned int table_width(const std::string& file, const char col_sep, const char line_sep) {
 	unsigned int width = 0;
 	unsigned int col_number = 0;
-	unsigned int input_len = file.length();
+	const unsigned int input_len = file.length();
 	for (unsigned int t = 0; t < input_len; ++t) {
 		if (file[t] == col_sep)
 			++col_number;

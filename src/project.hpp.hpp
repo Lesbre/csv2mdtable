@@ -13,7 +13,7 @@ This header contains info used in all parts of the program about the build
 #include "ansi.hpp"
 #include <iostream> // printf
 
-#define NAME Color_Yellow "markdown-table:" Color_Reset
+#define NAME Color_Yellow "@EXECUTABLE@:" Color_Reset
 
 #ifdef DEBUG
     #define printf_debug(...) std::fprintf(stderr, Color_Green "DEBUG:" Color_Reset __VA_ARGS__)

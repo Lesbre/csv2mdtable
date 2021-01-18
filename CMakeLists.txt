@@ -2,7 +2,9 @@ cmake_minimum_required (VERSION 3.13)
 project (CSV_to_MD_table)
 # The version number.
 set (VERSION_MAJOR 1)
-set (VERSION_MINOR 0)
+set (VERSION_MINOR 1)
+
+set (EXECUTABLE csv2mdtable)
 
 set (CMAKE_CXX_STANDARD 20)
 
@@ -39,4 +41,4 @@ FIND_PACKAGE(Threads REQUIRED)
 include_directories("${PROJECT_BINARY_DIR}")
 
 # add the executable
-add_executable(csv2mdtable ${SOURCE_FILES})
+add_executable(${EXECUTABLE} ${SOURCE_FILES})

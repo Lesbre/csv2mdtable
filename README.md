@@ -1,6 +1,22 @@
 # csv2mdtable
 
-Simple C++ console program to transform csv files into pretty markdown tables
+Simple C++ console program to transform csv files into pretty markdown tables.
+
+Simple example:
+```
+col 1,col 2,col 3,col 4        |col 1|col 2|col 3|col 4|
+5,6,7,8                   ->   |-----|-----|-----|-----|
+9,10,11,12                     |5    |6    |7    |8    |
+                               |9    |10   |11   |12   |
+```
+Which renders as
+
+|col 1|col 2|col 3|col 4|
+|-----|-----|-----|-----|
+|5    |6    |7    |8    |
+|9    |10   |11   |12   |
+
+
 
 ## Installation
 

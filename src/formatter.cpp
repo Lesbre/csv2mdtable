@@ -9,13 +9,9 @@
 
 std::string format(
 		const std::string& csv,
-		const char& col_sep,
-		const char& line_sep,
-		const bool& use_padding,
-		const bool& ext_pipes,
+		const settings& prgm_settings,
 		const std::vector<unsigned int>& widths,
-		const std::vector<char>& align,
-		const unsigned int& col_number
+		const unsigned int col_number
 		) {
 	std::string output = "";
 	unsigned int input_len = csv.length();
@@ -24,14 +20,14 @@ std::string format(
 	bool first_line = true;
 	for (unsigned int i = 0; i < input_len; ++i) {
 
-		if (csv[i] == col_sep || csv[i] == line_sep) {
+		if (csv[i] == prgm_settings.col_sep || csv[i] == prgm_settings.line_sep) {
 			// printf_debug("%d %d %d ", i, cell_start, col_id);
 			std::string cell = csv.substr(cell_start, i - cell_start);
 			unsigned int cell_len = i - cell_start;
 
-			if (use_padding) { // pad cell with spaces
+			if (prgm_settings.use_padding) { // pad cell with spaces
 				unsigned int missing = widths[col_id] - cell_len;
-				switch (align[col_id])
+				switch (prgm_settings.align[col_id])
 				{
 				case 'r':
 					cell.insert(0, missing, ' ');
@@ -46,19 +42,19 @@ std::string format(
 				}
 			}
 			// inserts cell in output
-			if (ext_pipes && col_id == 0) // leading pipe
+			if (prgm_settings.ext_pipes && col_id == 0) // leading pipe
 				output.append("|");
 			output.append(cell);
-			if (col_id != col_number - 1 || ext_pipes)
+			if (col_id != col_number - 1 || prgm_settings.ext_pipes)
 				output.append("|");
 
-			if (csv[i] == col_sep)
+			if (csv[i] == prgm_settings.col_sep)
 				++col_id;
 			else { // end line
 				// pad missing cells
 				for (++col_id; col_id < col_number; ++col_id) {
 					output.append(widths[col_id], ' ');
-					if (col_id != col_number - 1 || ext_pipes)
+					if (col_id != col_number - 1 || prgm_settings.ext_pipes)
 						output.append("|");
 				}
 				// insert new line
@@ -66,11 +62,11 @@ std::string format(
 				// insert dash line on second line
 				if (first_line) {
 
-					if (ext_pipes)
+					if (prgm_settings.ext_pipes)
 						output.append("|");
 					for (col_id = 0; col_id < col_number; ++col_id) {
-						if (use_padding) {
-							switch (align[col_id])
+						if (prgm_settings.use_padding) {
+							switch (prgm_settings.align[col_id])
 							{
 							case 'l':
 								output.append(":");
@@ -91,7 +87,7 @@ std::string format(
 							}
 						}
 						else {
-							switch (align[col_id])
+							switch (prgm_settings.align[col_id])
 							{
 							case 'l':
 								output.append(":---");
@@ -107,7 +103,7 @@ std::string format(
 								break;
 							}
 						}
-						if (col_id != col_number - 1 || ext_pipes)
+						if (col_id != col_number - 1 || prgm_settings.ext_pipes)
 							output.append("|");
 					}
 					first_line = false;

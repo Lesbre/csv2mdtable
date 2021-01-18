@@ -9,21 +9,23 @@ Author: Dorian Lesbre
 
 #include <vector>
 
-// Options as globals
-extern bool use_padding;
-extern bool ext_pipes;
-extern bool auto_detect_sep;
-extern char col_sep;
-extern char line_sep;
-extern char * in_path;
-extern char * out_path;
-extern std::vector<char> align;
+struct settings {
+	bool use_padding;
+	bool ext_pipes;
+	bool auto_detect_sep;
+	char col_sep;
+	char line_sep;
+	char * in_path;
+	char * out_path;
+	std::vector<char> align;
+};
+
 
 // CMD parser
 // set the options
 // returns 0  if continue program
 //         -1 if show help/version (normal exit)
-//         n  if error 
-int parse_cmd(int argc, char ** argv);
+//         n  if error
+int parse_cmd(int argc, char ** argv, settings& prgm_settings);
 
 #endif // OPTIONS_HPP

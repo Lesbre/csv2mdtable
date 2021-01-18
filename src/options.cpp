@@ -13,7 +13,7 @@ char * in_path       = nullptr;
 char * out_path      = nullptr;
 std::vector<char> align;
 
-int parse_cmd(int argc, char ** argv) {
+int parse_cmd(int argc, char ** argv, settings& prgm_settings) {
 	// Command-line parsing
 	bool show_help = false;
 	bool show_version = false;
@@ -31,12 +31,12 @@ int parse_cmd(int argc, char ** argv) {
 		}
 		else if (arg == "-i") {
 			// in file
-			if (in_path == nullptr) {
+			if (prgm_settings.in_path == nullptr) {
 				if (++i == argc) {
 					printf_error("no file name after \"-i\" argument.\n");
 					return 1;
 				}
-				in_path = argv[i];
+				prgm_settings.in_path = argv[i];
 			} else {
 					printf_error("multiple input files specified with \"-i\".\n");
 					return 1;
@@ -44,12 +44,12 @@ int parse_cmd(int argc, char ** argv) {
 		}
 		else if (arg == "-o") {
 			// out file
-			if (out_path == nullptr) {
+			if (prgm_settings.out_path == nullptr) {
 				if (++i == argc) {
 					printf_error("no file name after \"-o\" argument.\n");
 					return 1;
 				}
-				out_path = argv[i];
+				prgm_settings.out_path = argv[i];
 			} else {
 				printf_error("multiple output files specified with \"-o\".\n");
 				return 1;
@@ -69,7 +69,7 @@ int parse_cmd(int argc, char ** argv) {
 				case 'c':
 				case 'r':
 				case '_':
-					align.push_back(argv[i][j]);
+					prgm_settings.align.push_back(argv[i][j]);
 					break;
 				default:
 					printf_error("alignement string must only have 'l', 'c', 'r' or '_'\n  (left, center, right or none) as characters. Not '%c'.\n", argv[i][j]);
@@ -80,7 +80,7 @@ int parse_cmd(int argc, char ** argv) {
 		}
 		else if (arg == "-c") {
 			// column separator
-			if (auto_detect_sep) {
+			if (prgm_settings.auto_detect_sep) {
 				if (++i == argc) {
 					printf_error("no column separation character after \"-c\" argument.\n");
 					return 1;
@@ -89,8 +89,8 @@ int parse_cmd(int argc, char ** argv) {
 					printf_error("the column separation character must be a char, not \"%s\".\n", argv[i]);
 					return 1;
 				}
-				auto_detect_sep = false;
-				col_sep = argv[i][0];
+				prgm_settings.auto_detect_sep = false;
+				prgm_settings.col_sep = argv[i][0];
 			}
 			else {
 				printf_error("multiple column separators specified with \"-c\".\n");
@@ -112,13 +112,13 @@ int parse_cmd(int argc, char ** argv) {
 				return 1;
 			}
 			changed_line = true;
-			line_sep = argv[i][0];
+			prgm_settings.line_sep = argv[i][0];
 		}
 		else if (arg == "-no-pad") {
-			use_padding = false;
+			prgm_settings.use_padding = false;
 		}
 		else if (arg == "-no-pipes") {
-			ext_pipes = false;
+			prgm_settings.ext_pipes = false;
 		}
 		else {
 			// unknown option
@@ -146,12 +146,12 @@ int parse_cmd(int argc, char ** argv) {
 	}
 
 	if (changed_line) {
-		if (!auto_detect_sep && col_sep == line_sep) {
-			printf_error("same line and column separator '%c'.", col_sep);
+		if (!prgm_settings.auto_detect_sep && prgm_settings.col_sep == prgm_settings.line_sep) {
+			printf_error("same line and column separator '%c'.", prgm_settings.col_sep);
 			return 1;
 		}
 	}
-	else if (!auto_detect_sep && col_sep == '\n') {
+	else if (!prgm_settings.auto_detect_sep && prgm_settings.col_sep == '\n') {
 		printf_error("'\\n' is the default line separator.\n  specify another with '-l' if you want to use it as column separator");
 		return 1;
 	}

@@ -23,6 +23,8 @@ set(SOURCE_FILES
 # Compiler flags
 if ( CMAKE_COMPILER_IS_GNUCC )
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Wextra -Ofast")
+	set(CMAKE_CXX_FLAGS_DEBUG "-g -fsanitize=undefined -fsanitize-undefined-trap-on-error")
+	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG")
 endif()
 if ( MSVC )
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /W4")

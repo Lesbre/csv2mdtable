@@ -58,6 +58,7 @@ default: ./$(EXE)
 clean:
 	echo "$(color_s)Removing build files$(color_e)"
 	$(MAKE) -C $(BUILD) clean
+	rm -f $(SOURCE)/project.hpp
 
 clean-all:
 	echo "$(color_s)Removing build files, cmake files and executable$(color_e)"

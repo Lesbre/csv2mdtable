@@ -30,7 +30,7 @@ endif()
 # to the source code
 configure_file (
 	"${PROJECT_SOURCE_DIR}/src/project.hpp.hpp"
-	"${PROJECT_BINARY_DIR}/project.hpp"
+	"${PROJECT_SOURCE_DIR}/src/project.hpp"
 )
 
 FIND_PACKAGE(Threads REQUIRED)

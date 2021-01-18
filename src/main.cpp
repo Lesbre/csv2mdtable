@@ -34,9 +34,11 @@ int main(int argc, char ** argv) {
 	}
 
 	if (auto_detect_sep) {
-		if (!auto_detect_separator(csv, line_sep))
+		char sep = auto_detect_separator(csv, line_sep);
+		if (!sep)
 			return 3; // no suitable separator found
 			// invalid csv error code
+		col_sep = sep;
 	}
 
 	// column sizes for padding
